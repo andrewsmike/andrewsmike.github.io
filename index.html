@@ -1,43 +1,61 @@
-<html>
+<!doctype html>
+<html lang=en>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <title> PF Ratio Calculator </title>
-    <h1> PF Ratio Calculator </h1>
   </head>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script language="javascript">
     function update_result() {
 	var spo2 = document.getElementById("spo2").value;
 	var fio2 = document.getElementById("fio2").value;
-
 	var result = (0.1499 * spo2 * spo2 - 24.014 * spo2 + 1007.2) / (fio2/100);
-	document.getElementById("result").innerHTML = result;
+
+	var result_box = document.getElementById("PFRatio");
+	if ((spo2 < 80) || (spo2 > 96) || (fio2 < 21) || (fio2 > 100)) {
+	    result_box.placeholder = "";
+	} else if (isFinite(result)) {
+	    result_box.placeholder = Math.ceil(result);
+	} else {
+	    result_box.placeholder = "";
+	}
     }
   </script>
-  <body>
-    <table>
-      <tr>
-	<td>
-	  SpO<sub>2</sub>
-	</td>
-	<td>
-	  <input type=number min=80 max=96 id=spo2 oninput="update_result();">
-	</td>
-      </tr>
-      <tr>
-	<td>
-	  FiO<sub>2</sub>
-	</td>
-	<td>
-	  <input type=number min=21 max=100 id=fio2 oninput="update_result();">
-	</td>
-      </tr>
-      <tr>
-	<td>
-	  Result
-	</td>
-	<td>
-	  <div id="result"/>
-	</td>
-      </tr>
-    </table>
+
+  <body class="bg-light">
+    <div class=container>
+      <nav class="navbar navbar-light" style="border-radius: 10px; background-color: #e3f2fd; margin-bottom: 20px;">
+	<span class="navbar-brand"> PF Ratio Calculator</span>
+      </nav>
+      <form class="form-inline content">
+	<div class="input-group mb-2 mr-sm-2">
+	  <div class="input-group-prepend">
+	    <div class="input-group-text">SpO&#8322;</div>
+	  </div>
+	  <input type=text inputmode=numeric pattern="[0-9]*" id=spo2 oninput="update_result();" placeholder="80 <= SpO&#8322; <= 96">
+	</div>
+	<div class="input-group mb-2 mr-sm-2">
+	  <div class="input-group-prepend">
+	    <div class="input-group-text">FiO&#8322;</div>
+	  </div>
+
+	  <input type=text inputmode=numeric pattern="[0-9]*" id=fio2 oninput="update_result();" placeholder="21 <= FiO&#8322; <= 100">
+	</div>
+	<div class="input-group mb-2 mr-sm-2">
+	  <div class="input-group-prepend">
+	    <div class="input-group-text">PF Ratio</div>
+	  </div>
+	  <input type=text id=PFRatio readonly>
+	</div>
+      </div>
+    </form>
+    </div>
   </body>
 </html>
