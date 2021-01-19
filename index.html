@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title> PF Ratio Calculator </title>
+    <h1> PF Ratio Calculator </h1>
+  </head>
+  <script language="javascript">
+    function update_result() {
+	var spo2 = document.getElementById("spo2").value;
+	var fio2 = document.getElementById("fio2").value;
+
+	var result = (0.1499 * spo2 * spo2 - 24.014 * spo2 + 1007.2) / (fio2/100);
+	document.getElementById("result").innerHTML = result;
+    }
+  </script>
+  <body>
+    <table>
+      <tr>
+	<td>
+	  SpO<sub>2</sub>
+	</td>
+	<td>
+	  <input type=number min=80 max=96 id=spo2 oninput="update_result();">
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  FiO<sub>2</sub>
+	</td>
+	<td>
+	  <input type=number min=21 max=100 id=fio2 oninput="update_result();">
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  Result
+	</td>
+	<td>
+	  <div id="result"/>
+	</td>
+      </tr>
+    </table>
+  </body>
+</html>
